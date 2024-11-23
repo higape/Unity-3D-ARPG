@@ -14,6 +14,7 @@ namespace MyGame.Animations.Slime
             int layerIndex
         )
         {
+            //设置销毁对象的时间点为动作结束后0.2秒
             timeCount = stateInfo.length + 0.2f;
         }
 
@@ -29,27 +30,9 @@ namespace MyGame.Animations.Slime
             }
             else
             {
-                //清除对象
+                //销毁对象
                 Destroy(animator.gameObject);
             }
         }
-
-        // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-        //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        //{
-        //
-        //}
-
-        // OnStateMove is called right after Animator.OnAnimatorMove()
-        //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        //{
-        //    // Implement code that processes and affects root motion
-        //}
-
-        // OnStateIK is called right after Animator.OnAnimatorIK()
-        //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        //{
-        //    // Implement code that sets up animation IK (inverse kinematics)
-        //}
     }
 }

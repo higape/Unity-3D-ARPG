@@ -21,7 +21,8 @@ namespace MyGame.Animations.Slime
                 timeCount = slime.intervalTime * Random.Range(0.9f, 1.1f);
             else
                 timeCount = 0;
-            //随机走动
+
+            //初始化随机走动所需变量
             float angle = Random.Range(45f, 120f) * Mathf.Sign(Random.value - 0.5f);
             Vector3 e = slime.transform.rotation.eulerAngles;
             e.y += angle;

@@ -23,21 +23,22 @@ namespace MyGame
         void Start()
         {
             if (weapon1 != null)
-                weapon1.TriggerEnterCallback = ProcessAttack1;
+                weapon1.TriggerEnterCallback = (hit) =>
+                    hit.Hit(new AttackData() { strength = attack });
             if (weapon2 != null)
-                weapon2.TriggerEnterCallback = ProcessAttack2;
-        }
-
-        void Update()
-        {
-            //如果视野内有玩家
-            //如果玩家在攻击范围（距离），攻击
-            //否则靠近玩家
-            //否则休闲-随机移动
+                weapon2.TriggerEnterCallback = (hit) =>
+                    hit.Hit(new AttackData() { strength = attack });
         }
 
         void FixedUpdate()
         {
+            //坠落到地面以下
+            if (transform.position.y < -10)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             MoveTarget = null;
             AttackTarget = null;
             foreach (var c in detection.GetCollider())
@@ -85,22 +86,6 @@ namespace MyGame
                 {
                     animator.SetBool(AnimationHash.IsDead, true);
                 }
-            }
-        }
-
-        private void ProcessAttack1(Collider other)
-        {
-            if (other.TryGetComponent<Player>(out var player))
-            {
-                player.Hit(new AttackData() { strength = attack });
-            }
-        }
-
-        private void ProcessAttack2(Collider other)
-        {
-            if (other.TryGetComponent<Player>(out var player))
-            {
-                player.Hit(new AttackData() { strength = attack });
             }
         }
     }

@@ -8,7 +8,7 @@ namespace MyGame.Animations.Slime
     {
         private MyGame.Slime slime;
         private float timeCount;
-        private bool noTarget;
+        private bool isNoTarget;
 
         public override void OnStateEnter(
             Animator animator,
@@ -18,7 +18,7 @@ namespace MyGame.Animations.Slime
         {
             slime = animator.GetComponent<MyGame.Slime>();
             timeCount = slime.intervalTime * Random.Range(0.9f, 1.1f);
-            noTarget = slime.MoveTarget == null;
+            isNoTarget = slime.MoveTarget == null;
         }
 
         public override void OnStateUpdate(
@@ -28,17 +28,19 @@ namespace MyGame.Animations.Slime
         )
         {
             //发现目标
-            if (noTarget && slime.MoveTarget != null)
+            if (isNoTarget && slime.MoveTarget != null)
             {
                 if (!animator.IsInTransition(0))
                 {
                     animator.SetTrigger("Walk");
                 }
             }
+            //延时
             else if (timeCount > 0)
             {
                 timeCount -= Time.deltaTime;
             }
+            //延时结束后移动
             else if (!animator.IsInTransition(0))
             {
                 animator.SetTrigger("Walk");

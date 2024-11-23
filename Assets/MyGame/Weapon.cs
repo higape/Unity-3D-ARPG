@@ -16,7 +16,7 @@ namespace MyGame
         [SerializeField]
         private float effectTime = 1;
 
-        public Action<Collider> TriggerEnterCallback { get; set; }
+        public Action<IHit> TriggerEnterCallback { get; set; }
 
         private void Awake()
         {
@@ -25,9 +25,12 @@ namespace MyGame
 
         private void OnTriggerEnter(Collider other)
         {
-            TriggerEnterCallback?.Invoke(other);
-            if (effectPrefab != null)
-                StartCoroutine(ProcessVisualEffect(other.bounds.center));
+            if (other.TryGetComponent<IHit>(out var hit))
+            {
+                TriggerEnterCallback?.Invoke(hit);
+                if (effectPrefab != null)
+                    StartCoroutine(ProcessVisualEffect(other.bounds.center));
+            }
         }
 
         public void SetColliderEnabled(bool enabled)

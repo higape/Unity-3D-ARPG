@@ -29,7 +29,7 @@ namespace MyGame
         public bool IsAlive => Life > 0;
         public float TurnSpeed => moveSpeed * 90;
 
-        private void Awake()
+        protected void Awake()
         {
             if (Life <= 0)
             {

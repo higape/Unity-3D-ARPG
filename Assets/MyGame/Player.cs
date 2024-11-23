@@ -11,6 +11,7 @@ namespace MyGame
         public GameObject body;
         public GameObject cameraFocus;
         public Weapon weapon;
+        public GameObject recoverEffectPrefab;
 
         [SerializeField]
         private Animator animator;
@@ -22,17 +23,15 @@ namespace MyGame
 
         void Start()
         {
+            Cursor.lockState = CursorLockMode.Locked;
             Input.imeCompositionMode = IMECompositionMode.Off;
             if (weapon != null)
-                weapon.TriggerEnterCallback = ProcessAttack;
+                weapon.TriggerEnterCallback = (hit) =>
+                    hit.Hit(new AttackData() { strength = attack });
         }
 
         void Update()
         {
-            if (Input.GetButtonDown("Jump"))
-            {
-                Hit(new AttackData() { strength = attack });
-            }
             UpdateCamera();
             if (InvincibilityTimeCount > 0)
             {
@@ -40,11 +39,6 @@ namespace MyGame
                 anyChanged.Invoke(this);
             }
         }
-
-        // void OnTriggerEnter(Collider other)
-        // {
-        //     Debug.Log("Player收到消息");
-        // }
 
         private void UpdateCamera()
         {
@@ -164,25 +158,20 @@ namespace MyGame
                 if (!IsAlive)
                 {
                     animator.SetBool(AnimationHash.IsDead, true);
-                    StartCoroutine(Revive());
+                    StartCoroutine(ProcessDieRecover());
                 }
             }
         }
 
-        private IEnumerator Revive()
+        private IEnumerator ProcessDieRecover()
         {
             yield return new WaitForSeconds(3);
             Life = MaxLife;
             InvincibilityTimeCount = invincibilityTime;
             animator.SetBool(AnimationHash.IsDead, false);
-        }
-
-        public void ProcessAttack(Collider other)
-        {
-            if (other.TryGetComponent<IHit>(out var hit))
-            {
-                hit.Hit(new AttackData() { strength = attack });
-            }
+            GameObject effect = Instantiate(recoverEffectPrefab, transform);
+            yield return new WaitForSeconds(invincibilityTime);
+            Destroy(effect);
         }
     }
 }

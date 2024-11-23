@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MyGame.Animations.DogKnight
 {
-    public class Attack02 : StateMachineBehaviour
+    public class Attack : StateMachineBehaviour
     {
         private Player player;
 
