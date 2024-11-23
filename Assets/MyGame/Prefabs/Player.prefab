@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u73A9\u5BB6"
-  life: 10
+  life: 3
   attack: 1
   defence: 1
   moveSpeed: 4
@@ -220,6 +220,7 @@ MonoBehaviour:
   body: {fileID: 9196279079728419207}
   cameraFocus: {fileID: 827429979148458058}
   weapon: {fileID: 5745645490953848931}
+  recoverEffectPrefab: {fileID: 9017484664307500583, guid: 1245b8d2997d5b34fb1637be70a7eb05, type: 3}
   animator: {fileID: 9196279079718937161}
   rigidbody: {fileID: 827429980602372431}
 --- !u!54 &827429980602372431
@@ -259,6 +260,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 827429980602372417}
     m_Modifications:
+    - target: {fileID: 512311172252402974, guid: 214e08cd5e5d74c458e2a81b7ec2c84c, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8422892626592999198, guid: 214e08cd5e5d74c458e2a81b7ec2c84c, type: 3}
       propertyPath: m_Controller
       value: 
@@ -344,7 +349,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.33, y: 1.0114081, z: 0.14}
+  m_Size: {x: 0.33, y: 1, z: 0.33}
   m_Center: {x: 0.0000001336813, y: -0.6548474, z: 0.00000033524657}
 --- !u!114 &5745645490953848931
 MonoBehaviour:
