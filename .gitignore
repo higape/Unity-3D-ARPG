@@ -78,4 +78,5 @@ crashlytics-build.properties
 .vsconfig
 
 # Sample
-/[Aa]ssets/[Ss]amples/
+/[Aa]ssets/[Ss]amples.meta
+/[Aa]ssets/[Ss]amples/*
